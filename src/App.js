@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import { readRemoteFile } from "react-papaparse";
 import qs from "qs";
 import { createBrowserHistory } from 'history'
+import 'semantic-ui-css/semantic.min.css'
+import { Grid, Header } from 'semantic-ui-react'
 
 const profilesContext = createContext([]);
 
@@ -76,9 +78,18 @@ function App() {
 
   return (
     <profilesContext.Provider value={profiles}>
-      <h1>Test</h1>
-      <Compendium />
-      <Roster />
+      <Grid columns={2} divided>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h1">Compendium</Header>
+            <Compendium />
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h1">Roster</Header>
+            <Roster />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </profilesContext.Provider>
   );
 }
