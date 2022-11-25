@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'warcry';
+  src: local('warcry'), url(./fonts/warcry.ttf), format('truetype');
+}
+
+.rune {
+  font-family: warcry;
+}
