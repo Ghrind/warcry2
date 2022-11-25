@@ -13,6 +13,11 @@ function profileIsSelectable(roster, profile) {
     return true
   }
 
+  // Profile is a bladeborn, and its champion is already on the roster
+  if (profile.bladeborn && roster.fighters.some(f => profileHasKeyword(f.profile, 'champion') && f.profile.bladeborn === profile.bladeborn)) {
+    return true
+  }
+
   return false
 }
 
