@@ -8,13 +8,13 @@ function profileIsSelectable(roster, profile) {
     return true
   }
 
-  // Profile is an ally (champion, same alliance)
-  if (profileHasKeyword(profile, 'champion') && profile.alliance === roster.alliance) {
+  // Profile is an ally (hero or ally runemark & same alliance)
+  if ((profileHasKeyword(profile, 'hero') || profileHasKeyword(profile, 'ally')) && profile.alliance === roster.alliance) {
     return true
   }
 
-  // Profile is a bladeborn, and its champion is already on the roster
-  if (profile.bladeborn && roster.fighters.some(f => profileHasKeyword(f.profile, 'champion') && f.profile.bladeborn === profile.bladeborn)) {
+  // Profile is a bladeborn, and its hero is already on the roster
+  if (profile.bladeborn && roster.fighters.some(f => profileHasKeyword(f.profile, 'hero') && f.profile.bladeborn === profile.bladeborn)) {
     return true
   }
 
@@ -39,7 +39,7 @@ export function FighterListItem(props) {
           <List.Item><Rune name="toughness" /> {props.fighter.profile.toughness}3</List.Item>
           <List.Item><Rune name="wounds" /> {props.fighter.profile.hp}</List.Item>
           <List.Item>
-            {props.fighter.profile.leader && <Rune name="leader" />}
+            {props.leader && <Rune name="leader" />}
             {props.fighter.profile.keywords && props.fighter.profile.keywords.split(',').map( (kw) => <span><Rune name={kw} /> </span> )}
           </List.Item>
         </List>

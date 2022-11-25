@@ -8,19 +8,19 @@ export function Roster(props) {
   const roster = props.roster
   const totalCost = roster.fighters.map(f => f.profile.cost).reduce((a, b) => a + parseInt(b), 0);
   const leader = getLeader(roster)
-  const champions = roster.fighters.filter(f => profileHasKeyword(f.profile, 'champion'))
+  const heroes = roster.fighters.filter(f => profileHasKeyword(f.profile, 'hero'))
   const allies = roster.fighters.filter(f => f.profile.faction !== roster.faction)
 
-  // Bladeborn fighters without a champion mark can only be added as allies if
-  // a the bladeborn champion has been added. And in that case they don't
+  // Bladeborn fighters without a hero mark can only be added as allies if
+  // a the bladeborn hero has been added. And in that case they don't
   // count toward the allies limit.
-  const alliesForLimit = allies.filter(f => profileHasKeyword(f.profile, 'champion'))
+  const alliesForLimit = allies.filter(f => profileHasKeyword(f.profile, 'hero') || profileHasKeyword(f.profile, 'ally'))
 
-  const availableBladeborn = roster.fighters.filter(f => profileHasKeyword(f.profile, 'champion')).map(f => f.profile.bladeborn).filter(b => b !== '')
+  const availableBladeborn = roster.fighters.filter(f => profileHasKeyword(f.profile, 'hero')).map(f => f.profile.bladeborn).filter(b => b !== '')
 
   // Detects bladeborn fighters that are no more valid in the roster. IE: when
-  // they've been added when they champion was in the roster and their champion
-  // was then removed from the roster.
+  // they've been added when their hero was in the roster and it was then
+  // removed from the roster.
   const illicitBladebornFighters = roster.fighters.some(f => f.profile.faction !== roster.faction && f.profile.bladeborn !== '' && !availableBladeborn.includes(f.profile.bladeborn))
 
   return (
@@ -46,7 +46,7 @@ export function Roster(props) {
               <List.Icon color="red" name="exclamation circle" />
               <List.Content>Your band has no leader</List.Content>
             </List.Item>}
-        {champions.length <= 3
+        {heroes.length <= 3
           ? <List.Item>
               <List.Icon color="green" name="check circle" />
               <List.Content>Your band has 3 heroes or less</List.Content>
@@ -67,27 +67,27 @@ export function Roster(props) {
          {illicitBladebornFighters &&
            <List.Item>
              <List.Icon color="red" name="exclamation circle" />
-             <List.Content>You include bladeborn fighters without including their champion</List.Content>
+             <List.Content>You include bladeborn fighters without including their hero</List.Content>
            </List.Item>}
       </ List>
       <Header as="h4">Heroes</Header>
       <List>
-        {champions.filter(f => !allies.includes(f)).map( f =>
-          <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} />
+        {heroes.filter(f => !allies.includes(f)).map( f =>
+          <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} leader={leader && leader.id === f.id } />
         )}
       </List>
       <Divider />
       <Header as="h4">Warriors</Header>
       <List>
-        {roster.fighters.filter(f => !champions.includes(f) && !allies.includes(f)).map( f =>
-          <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} />
+        {roster.fighters.filter(f => !heroes.includes(f) && !allies.includes(f)).map( f =>
+          <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} leader={leader && leader.id === f.id } />
         )}
       </List>
       <Divider />
       <Header as="h4">Allies</Header>
       <List>
         {allies.map( f =>
-          <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} />
+          <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} leader={leader && leader.id === f.id } />
         )}
       </List>
     </Container>

@@ -8,7 +8,7 @@ export function profileHasKeyword(profile, keyword) {
 }
 
 export function getLeader(roster) {
-  return(roster.fighters.find(f => profileHasKeyword(f.profile, 'champion') && (roster.faction === '' || f.profile.faction === roster.faction)));
+  return(roster.fighters.find(f => profileHasKeyword(f.profile, 'hero') && (roster.faction === '' || f.profile.faction === roster.faction)));
 }
 
 export function removeFighterFromRoster(roster, fighterId) {
@@ -19,8 +19,8 @@ export function updateLeader(roster) {
   var faction = '';
   var alliance = '';
 
-  // Leaders must have the champion runemark and not be an ally
-  var leader = roster.fighters.find(f => profileHasKeyword(f.profile, 'champion'));
+  // Leaders must have the hero runemark and not be an ally
+  var leader = roster.fighters.find(f => profileHasKeyword(f.profile, 'hero'));
 
   if( leader ) {
     faction = leader.profile.faction;
