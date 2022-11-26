@@ -29,7 +29,7 @@ export function FighterListItem(props) {
       </List.Header>
       <List.Content floated="right">
         {props.context === "remove"
-          ? <Button onClick={ () => props.removeFighterFromRoster(props.fighter.id) }>Remove</Button>
+          ? <Button onClick={ () => props.removeFighterFromRoster(props.fighter.id) }>-{props.fighter.profile.cost}pts</Button>
           : <Button disabled={!profileIsSelectable(props.roster, props.fighter.profile)} onClick={ () => props.addFighterToRoster(props.fighter.profile) }>+{props.fighter.profile.cost}pts</Button>
         }
       </List.Content>
