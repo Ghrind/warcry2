@@ -1,4 +1,4 @@
-import { Grid, Header } from 'semantic-ui-react'
+import { Grid, Header, Button } from 'semantic-ui-react'
 import { Compendium } from './Compendium'
 import { Roster } from './Roster'
 import { useState, useEffect } from 'react'
@@ -12,6 +12,7 @@ export function BandBuilder(){
   const [profiles, setProfiles] = useState([]);
   const [roster, setRoster] = useState(initEmptyRoster())
   const [abilities, setAbilities] = useState([]);
+  const [showCompendium, setShowCompendium] = useState(true)
 
   const history = createBrowserHistory();
 
@@ -54,18 +55,32 @@ export function BandBuilder(){
 
   return(
     <compendiumContext.Provider value={{profiles: profiles, abilities: abilities}}>
-      <Grid columns={2} divided>
-        <Grid.Row>
-          <Grid.Column>
-            <Header as="h1">Compendium</Header>
-            <Compendium addFighterToRoster={addFighterToRosterHandle} roster={roster}/>
-          </Grid.Column>
-          <Grid.Column>
-            <Header as="h1">Roster</Header>
-            <Roster removeFighterFromRoster={removeFighterFromRosterHandle} roster={roster} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      { showCompendium
+        ? <Button onClick={() => { setShowCompendium(false) }}>Hide Compendium</Button>
+        : <Button onClick={() => { setShowCompendium(true) }}>Show Compendium</Button>
+      }
+      { showCompendium
+      ? <Grid columns={2} divided>
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h1">Compendium</Header>
+              <Compendium addFighterToRoster={addFighterToRosterHandle} roster={roster}/>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h1">Roster</Header>
+              <Roster removeFighterFromRoster={removeFighterFromRosterHandle} roster={roster} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      : <Grid columns={1}>
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h1">Roster</Header>
+              <Roster removeFighterFromRoster={removeFighterFromRosterHandle} roster={roster} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      }
     </compendiumContext.Provider>
   )
 }
