@@ -31,7 +31,7 @@ export function Roster(props) {
         {totalCost <= 1000
           ? <List.Item>
               <List.Icon color="green" name="check circle" />
-              <List.Content>Your band is 1000pts or less</List.Content>
+              <List.Content>Your band is 1000pts or less ({1000 - totalCost} pts remaining)</List.Content>
             </List.Item>
           : <List.Item>
               <List.Icon color="red" name="exclamation circle" />
