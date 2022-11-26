@@ -19,6 +19,7 @@ const mapping = {
   elite: '',
   fangs: '',
   ferocious: '',
+  fly: '',
   frenzied: '',
   hero: '',
   leader: '',
