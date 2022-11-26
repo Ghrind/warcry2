@@ -1,5 +1,5 @@
-import './fonts/warcry.ttf'
 import './runes.css'
+import './fonts/warcry.ttf'
 
 const mapping = {
   agile: '',
