@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react'
-//import { setAlliance, setFaction, loadData } from './compendiumSlice'
-import { Container, List, Button } from 'semantic-ui-react'
-import { profilesContext } from './profilesContext'
+import { Container, List, Button, Header } from 'semantic-ui-react'
+import { compendiumContext } from './compendiumContext'
 import { FighterListItem } from './FighterListItem'
+import { profileCanUseAbility } from './api'
 
 export function Compendium(props) {
-  const profiles = useContext(profilesContext)
+  const compendium = useContext(compendiumContext);
+  const profiles = compendium.profiles;
 
   const alliances = [...new Set(profiles.map(w => w.alliance))];
   const [alliance, setAlliance] = useState("");
@@ -14,6 +15,8 @@ export function Compendium(props) {
   const [faction, setFaction] = useState("");
 
   const filteredProfiles = profiles.filter(p => p.faction === faction);
+
+  const abilities = compendium.abilities.filter( a => a.faction === faction )
 
   return (
     <Container>
@@ -35,6 +38,17 @@ export function Compendium(props) {
       <List divided verticalAlign="middle">
         {filteredProfiles && filteredProfiles.map( p =>
           <FighterListItem roster={props.roster} fighter={{ profile: p }} addFighterToRoster={props.addFighterToRoster} />
+        )}
+      </List>
+      <Header as="h3">Abilities</Header>
+      <List divided verticalAlign="middle">
+        {abilities.map( a =>
+          <List.Item>
+            <b>[{a.roll}] {a.ability}: </b>
+            {a.description}
+            <br />
+            <i>Used by: {a.keywords === '' ? 'All' : profiles.filter(p => profileCanUseAbility(p, a)).map(p => p.name).join(", ")}</i>
+          </List.Item>
         )}
       </List>
     </Container>

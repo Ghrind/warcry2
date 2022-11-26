@@ -3,7 +3,7 @@ import { Compendium } from './Compendium'
 import { Roster } from './Roster'
 import { useState, useEffect } from 'react'
 import { readRemoteFile } from "react-papaparse";
-import { profilesContext } from './profilesContext'
+import { compendiumContext } from './compendiumContext'
 import qs from "qs";
 import { createBrowserHistory } from 'history'
 import { addFighterToRoster, removeFighterFromRoster, initEmptyRoster, initRosterByIds } from './api'
@@ -11,6 +11,7 @@ import { addFighterToRoster, removeFighterFromRoster, initEmptyRoster, initRoste
 export function BandBuilder(){
   const [profiles, setProfiles] = useState([]);
   const [roster, setRoster] = useState(initEmptyRoster())
+  const [abilities, setAbilities] = useState([]);
 
   const history = createBrowserHistory();
 
@@ -24,12 +25,15 @@ export function BandBuilder(){
         {
           header: true,
           complete: (results) => {
-            setProfiles(results.data);
+            const profiles = results.data.filter(row => row.profileId !== '');
+            const abilities = results.data.filter(row => row.profileId === '');
+            setProfiles(profiles);
+            setAbilities(abilities);
             const filterParams = history.location.search.substr(1);
             const filtersFromParams = qs.parse(filterParams);
 
             if (filtersFromParams.p) {
-              setRoster(initRosterByIds(results.data, filtersFromParams.p.split(",")))
+              setRoster(initRosterByIds(profiles, filtersFromParams.p.split(",")))
             }
           },
         }
@@ -49,7 +53,7 @@ export function BandBuilder(){
   }
 
   return(
-    <profilesContext.Provider value={profiles}>
+    <compendiumContext.Provider value={{profiles: profiles, abilities: abilities}}>
       <Grid columns={2} divided>
         <Grid.Row>
           <Grid.Column>
@@ -62,6 +66,6 @@ export function BandBuilder(){
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    </profilesContext.Provider>
+    </compendiumContext.Provider>
   )
 }

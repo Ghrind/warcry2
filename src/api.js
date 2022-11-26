@@ -4,7 +4,16 @@ export function profileHasKeyword(profile, keyword) {
   if (profile === undefined || profile.keywords === undefined) {
     return false
   }
-  return profile.keywords.split(',').map( kw => kw.toLowerCase() ).includes(keyword);
+  return profile.keywords.split(',').map( kw => kw.toLowerCase() ).includes(keyword.toLowerCase());
+}
+
+export function profileHasKeywords(profile, keywords) {
+  var safeKeywords = keywords.filter(k => k !== '')
+  return(safeKeywords.every(k => profileHasKeyword(profile, k)));
+}
+
+export function profileCanUseAbility(profile, ability) {
+  return(profile.faction === ability.faction && profileHasKeywords(profile, ability.keywords.split(',')))
 }
 
 export function getLeader(roster) {

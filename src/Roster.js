@@ -1,11 +1,13 @@
 import { useContext, useState, useEffect } from 'react'
-import { profilesContext } from './profilesContext'
-import { getLeader, profileHasKeyword } from './api'
+import { getLeader, profileHasKeyword, profileCanUseAbility } from './api'
 import { List, Divider, Container, Header } from 'semantic-ui-react'
 import { FighterListItem } from './FighterListItem'
+import { compendiumContext } from './compendiumContext'
 
 export function Roster(props) {
+  const compendium = useContext(compendiumContext);
   const roster = props.roster
+  const abilities = compendium.abilities.filter(a => roster.fighters.some(f => profileCanUseAbility(f.profile, a)))
   const totalCost = roster.fighters.map(f => f.profile.cost).reduce((a, b) => a + parseInt(b), 0);
   const leader = getLeader(roster)
   const heroes = roster.fighters.filter(f => profileHasKeyword(f.profile, 'hero'))
@@ -90,6 +92,18 @@ export function Roster(props) {
           <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} leader={leader && leader.id === f.id } />
         )}
       </List>
+      <Header as="h3">Abilities</Header>
+      <List divided>
+        {abilities.map( a =>
+          <List.Item>
+            <b>[{a.roll}] {a.ability}: </b>
+            {a.description}
+            <br />
+            <i>Used by: {a.keywords === '' ? 'All' : [...new Set(roster.fighters.filter(f => profileCanUseAbility(f.profile, a)).map(f => f.profile.name))].join(", ")}</i>
+          </List.Item>
+        )}
+      </List>
+
     </Container>
   )
 }
