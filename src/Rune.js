@@ -1,3 +1,4 @@
+import './fonts/warcry.ttf'
 import './runes.css'
 
 const mapping = {
