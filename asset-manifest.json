@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/warcry2/static/css/main.29a1eaac.css",
-    "main.js": "/warcry2/static/js/main.9e12de7b.js",
+    "main.js": "/warcry2/static/js/main.ef78b47c.js",
     "static/js/787.8ad4d7c1.chunk.js": "/warcry2/static/js/787.8ad4d7c1.chunk.js",
     "static/media/brand-icons.svg": "/warcry2/static/media/brand-icons.6729d29753e000c17489.svg",
     "static/media/icons.svg": "/warcry2/static/media/icons.62d9dae4e0040e81c980.svg",
@@ -22,11 +22,11 @@
     "static/media/outline-icons.woff2": "/warcry2/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "index.html": "/warcry2/index.html",
     "main.29a1eaac.css.map": "/warcry2/static/css/main.29a1eaac.css.map",
-    "main.9e12de7b.js.map": "/warcry2/static/js/main.9e12de7b.js.map",
+    "main.ef78b47c.js.map": "/warcry2/static/js/main.ef78b47c.js.map",
     "787.8ad4d7c1.chunk.js.map": "/warcry2/static/js/787.8ad4d7c1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.29a1eaac.css",
-    "static/js/main.9e12de7b.js"
+    "static/js/main.ef78b47c.js"
   ]
 }
