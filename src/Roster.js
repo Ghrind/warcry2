@@ -99,7 +99,7 @@ export function Roster(props) {
             <b>[{a.roll}] {a.ability}: </b>
             {a.description}
             <br />
-            <i>Used by: {a.keywords === '' ? 'All' : [...new Set(roster.fighters.filter(f => profileCanUseAbility(f.profile, a)).map(f => f.profile.name))].join(", ")}</i>
+            <i>Used by: {[...new Set(roster.fighters.filter(f => profileCanUseAbility(f.profile, a)).map(f => f.profile.name))].join(", ")}</i>
           </List.Item>
         )}
       </List>
