@@ -47,7 +47,7 @@ export function Compendium(props) {
             <b>[{a.roll}] {a.ability}: </b>
             {a.description}
             <br />
-            <i>Used by: {a.keywords === '' ? 'All' : profiles.filter(p => profileCanUseAbility(p, a)).map(p => p.name).join(", ")}</i>
+            <i>Used by: {profiles.filter(p => profileCanUseAbility(p, a)).map(p => p.name).join(", ")}</i>
           </List.Item>
         )}
       </List>

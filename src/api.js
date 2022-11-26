@@ -13,7 +13,7 @@ export function profileHasKeywords(profile, keywords) {
 }
 
 export function profileCanUseAbility(profile, ability) {
-  return(profile.faction === ability.faction && profileHasKeywords(profile, ability.keywords.split(',')))
+  return(profile.faction === ability.faction && profileHasKeywords(profile, ability.keywords.split(',')) && (ability.bladeborn === "" || ability.bladeborn === profile.bladeborn))
 }
 
 export function getLeader(roster) {
