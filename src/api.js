@@ -12,6 +12,10 @@ export function profileHasKeywords(profile, keywords) {
   return(safeKeywords.every(k => profileHasKeyword(profile, k)));
 }
 
+export function profileHasAnyKeyword(profile, keywords) {
+  return(keywords.some(k => profileHasKeyword(profile, k)));
+}
+
 export function profileCanUseAbility(profile, ability) {
   return(profile.faction === ability.faction && profileHasKeywords(profile, ability.keywords.split(',')) && (ability.bladeborn === "" || ability.bladeborn === profile.bladeborn))
 }

@@ -1,6 +1,6 @@
 import { List, Button } from 'semantic-ui-react'
 import { Rune } from './Rune'
-import { profileHasKeyword } from './api'
+import { profileHasKeyword, profileHasAnyKeyword } from './api'
 
 function profileIsSelectable(roster, profile) {
   // Profile is from the same faction
@@ -9,7 +9,7 @@ function profileIsSelectable(roster, profile) {
   }
 
   // Profile is an ally (hero or ally runemark & same alliance)
-  if ((profileHasKeyword(profile, 'hero') || profileHasKeyword(profile, 'ally')) && profile.alliance === roster.alliance) {
+  if (profileHasAnyKeyword(profile, ['hero', 'ally', 'thrall']) && profile.alliance === roster.alliance) {
     return true
   }
 

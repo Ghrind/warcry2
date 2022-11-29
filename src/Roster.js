@@ -25,6 +25,8 @@ export function Roster(props) {
   // removed from the roster.
   const illicitBladebornFighters = roster.fighters.some(f => f.profile.faction !== roster.faction && f.profile.bladeborn !== '' && !availableBladeborn.includes(f.profile.bladeborn))
 
+  const thralls = roster.fighters.filter(f => profileHasKeyword(f.profile, 'thrall'))
+
   return (
     <Container>
       <h2>{roster.name} ({roster.fighters.length} fighters | {totalCost}pts)</h2>
@@ -71,6 +73,11 @@ export function Roster(props) {
              <List.Icon color="red" name="exclamation circle" />
              <List.Content>You include bladeborn fighters without including their hero</List.Content>
            </List.Item>}
+         {thralls.length > 3 &&
+           <List.Item>
+             <List.Icon color="red" name="exclamation circle" />
+             <List.Content>Your band has more than 3 thralls</List.Content>
+           </List.Item>}
       </ List>
       <Header as="h4">Heroes</Header>
       <List>
@@ -86,7 +93,7 @@ export function Roster(props) {
         )}
       </List>
       <Divider />
-      <Header as="h4">Allies</Header>
+      <Header as="h4">Allies / Thralls</Header>
       <List>
         {allies.map( f =>
           <FighterListItem context="remove" roster={roster} fighter={f} removeFighterFromRoster={props.removeFighterFromRoster} leader={leader && leader.id === f.id } />

@@ -32,6 +32,7 @@ const mapping = {
   spear: '',
   strength: '',
   sword: '',
+  thrall: '',
   toughness: '',
   trapper: '',
   unarmed: '',
