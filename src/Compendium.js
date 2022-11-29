@@ -3,6 +3,7 @@ import { Container, List, Button, Header } from 'semantic-ui-react'
 import { compendiumContext } from './compendiumContext'
 import { FighterListItem } from './FighterListItem'
 import { profileCanUseAbility } from './api'
+import { replaceRuneInText } from './Rune'
 
 export function Compendium(props) {
   const compendium = useContext(compendiumContext);
@@ -45,7 +46,7 @@ export function Compendium(props) {
         {abilities.map( a =>
           <List.Item>
             <b>[{a.roll}] {a.ability}: </b>
-            {a.description}
+            {replaceRuneInText(a.description)}
             <br />
             <i>Used by: {profiles.filter(p => profileCanUseAbility(p, a)).map(p => p.name).join(", ")}</i>
           </List.Item>

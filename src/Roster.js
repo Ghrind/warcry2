@@ -3,8 +3,7 @@ import { getLeader, profileHasKeyword, profileCanUseAbility } from './api'
 import { List, Divider, Container, Header } from 'semantic-ui-react'
 import { FighterListItem } from './FighterListItem'
 import { compendiumContext } from './compendiumContext'
-import reactStringReplace from 'react-string-replace'
-import { Rune } from './Rune'
+import { replaceRuneInText } from './Rune'
 
 export function Roster(props) {
   const compendium = useContext(compendiumContext);
@@ -106,9 +105,7 @@ export function Roster(props) {
         {abilities.map( a =>
           <List.Item>
             <b>[{a.roll}] {a.ability}: </b>
-            {reactStringReplace(a.description, /<([a-zA-Z]+)>/, (match, i) => (
-              <Rune name={match} />
-            ))}
+            {replaceRuneInText(a.description)}
             <br />
             <i>Used by: {[...new Set(roster.fighters.filter(f => profileCanUseAbility(f.profile, a)).map(f => f.profile.name))].join(", ")}</i>
           </List.Item>

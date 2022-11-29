@@ -1,5 +1,6 @@
 import './runes.css'
 import './fonts/warcry.ttf'
+import reactStringReplace from 'react-string-replace'
 
 const mapping = {
   agile: '',
@@ -38,6 +39,12 @@ const mapping = {
   unarmed: '',
   warrior: '',
   wounds: '',
+}
+
+export function replaceRuneInText(text) {
+  return reactStringReplace(text, /<([a-zA-Z]+)>/, (match, i) => (
+    <Rune name={match} />
+  ))
 }
 
 export function Rune(props) {
