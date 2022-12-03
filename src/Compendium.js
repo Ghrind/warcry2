@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { Container, List, Button, Header } from 'semantic-ui-react'
 import { compendiumContext } from './compendiumContext'
 import { FighterListItem } from './FighterListItem'
-import { profileCanUseAbility } from './api'
+import { profileCanUseAbility, sortAbilities } from './api'
 import { replaceRuneInText } from './Rune'
 
 export function Compendium(props) {
@@ -17,7 +17,7 @@ export function Compendium(props) {
 
   const filteredProfiles = profiles.filter(p => p.faction === faction);
 
-  const abilities = compendium.abilities.filter( a => a.faction === faction )
+  const abilities = sortAbilities(compendium.abilities.filter( a => a.faction === faction ));
 
   return (
     <Container>

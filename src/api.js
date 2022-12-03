@@ -65,3 +65,32 @@ export function initRosterByIds(profiles, profileIds) {
   })
   return(roster)
 }
+
+function compareAbilities(a, b) {
+  if(a.keywords.split(",").length < b.keywords.split(",").length)
+    return -1;
+
+  if(b.keywords.split(",").length < a.keywords.split(",").length)
+    return -1;
+
+  if(a.ability < b.ability)
+    return -1;
+
+  if (b.ability < a.ability)
+    return 1;
+
+  return 0
+}
+
+export function sortAbilities(abilities) {
+  var sortedAbilities = [];
+
+  sortedAbilities = sortedAbilities.concat(abilities.filter(a => a.roll === 'Reaction').sort(compareAbilities));
+  sortedAbilities = sortedAbilities.concat(abilities.filter(a => a.roll === 'Double').sort(compareAbilities));
+  sortedAbilities = sortedAbilities.concat(abilities.filter(a => a.roll === 'Triple').sort(compareAbilities));
+  sortedAbilities = sortedAbilities.concat(abilities.filter(a => a.roll === 'Quad').sort(compareAbilities));
+
+  return(sortedAbilities);
+}
+
+

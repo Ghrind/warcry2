@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
-import { getLeader, profileHasKeyword, profileCanUseAbility } from './api'
+import { getLeader, profileHasKeyword, profileCanUseAbility, sortAbilities } from './api'
 import { List, Divider, Container, Header } from 'semantic-ui-react'
 import { FighterListItem } from './FighterListItem'
 import { compendiumContext } from './compendiumContext'
@@ -8,7 +8,7 @@ import { replaceRuneInText } from './Rune'
 export function Roster(props) {
   const compendium = useContext(compendiumContext);
   const roster = props.roster
-  const abilities = compendium.abilities.filter(a => roster.fighters.some(f => profileCanUseAbility(f.profile, a)))
+  const abilities = sortAbilities(compendium.abilities.filter(a => roster.fighters.some(f => profileCanUseAbility(f.profile, a))));
   const totalCost = roster.fighters.map(f => f.profile.cost).reduce((a, b) => a + parseInt(b), 0);
   const leader = getLeader(roster)
   const heroes = roster.fighters.filter(f => profileHasKeyword(f.profile, 'hero'))
