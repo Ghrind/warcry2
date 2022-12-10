@@ -36,7 +36,7 @@ export function FighterListItem(props) {
       <List.Content>
         <List celled horizontal>
           <List.Item><Rune name="move" /> {props.fighter.profile.move}</List.Item>
-          <List.Item><Rune name="toughness" /> {props.fighter.profile.toughness}3</List.Item>
+          <List.Item><Rune name="toughness" /> {props.fighter.profile.toughness}</List.Item>
           <List.Item><Rune name="wounds" /> {props.fighter.profile.hp}</List.Item>
           <List.Item>
             {props.leader && <Rune name="leader" />}
