@@ -26,6 +26,7 @@ const mapping = {
   hammer: '',
   hero: '',
   leader: '',
+  mount: '',
   move: '',
   mystic: '',
   range: '',
