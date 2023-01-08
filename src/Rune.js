@@ -35,6 +35,7 @@ const mapping = {
   'reach weapon': '',
   scythe: '',
   scout: '',
+  sentience: '',
   spear: '',
   strength: '',
   sword: '',
