@@ -30,6 +30,7 @@ const mapping = {
   mount: '',
   move: '',
   mystic: '',
+  priest: '',
   range: '',
   'ranged weapon': '',
   'reach weapon': '',
